@@ -3,7 +3,7 @@
 RenderManager::RenderManager()
 {
 	window = new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!");
-	circle = sf::CircleShape(100.f);
+	circle.setRadius(100.0f);
     circle.setFillColor(sf::Color::Green);
 }
 

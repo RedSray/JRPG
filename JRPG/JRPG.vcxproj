@@ -163,7 +163,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="RenderManager.cpp" />
-    <ClCompile Include="RessourcesManager.cpp" />
+    <ClCompile Include="ResourcesManager.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="TileMap.cpp" />
     <ClCompile Include="XMLToMemoryHelper.cpp" />
@@ -176,7 +176,7 @@
     <ClInclude Include="LogicManager.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="RenderManager.h" />
-    <ClInclude Include="RessourcesManager.h" />
+    <ClInclude Include="ResourcesManager.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="TileMap.h" />
     <ClInclude Include="XMLToMemoryHelper.h" />
