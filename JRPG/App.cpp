@@ -5,6 +5,7 @@ App::App()
 {
 	renderManager = new RenderManager();
 	game = XMLToMemoryHelper::GetGame();
+	game.SetScene(XMLToMemoryHelper::GetScene());
 }
 
 App::~App()
@@ -16,7 +17,7 @@ void App::Run()
 {
 	while(renderManager->WindowIsOpen()){
 		renderManager->PollEvent();
-		renderManager->Update();
+		renderManager->Update(game);
 	}
 }
 

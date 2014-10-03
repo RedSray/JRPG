@@ -1,15 +1,21 @@
-#include <list>
+#ifndef GAME_H
+#define GAME_H
+
+#include "Scene.h"
 
 class Game{
 
 public:
 	Game();
-	Game(int);
 	~Game();
-	Game(const Game&);
+
+	void SetScene(Scene);
+	Scene GetScene();
 
 private:
-	int actualScene;
-	
+	Scene scene;
 
 };
+
+#endif
+

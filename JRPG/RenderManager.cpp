@@ -1,10 +1,11 @@
 #include "RenderManager.h"
 
+
 RenderManager::RenderManager()
 {
-	window = new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!");
-	circle.setRadius(100.0f);
-    circle.setFillColor(sf::Color::Green);
+	window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!");
+	view = sf::View(sf::Vector2f(0.0f,0.0f), sf::Vector2f(800.0f,600.0f));
+	window->setView(view);
 }
 
 RenderManager::~RenderManager()
@@ -17,9 +18,11 @@ bool RenderManager::WindowIsOpen()
 	return window->isOpen();
 }
 
-void RenderManager::Update(){
+void RenderManager::Update(Game game){
+
+	window->setView(view);
 	window->clear();
-    window->draw(circle);
+    window->draw(game.GetScene().GetCircle());
     window->display();
 }
 
