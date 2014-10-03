@@ -1,5 +1,6 @@
 #include "RenderManager.h"
 #include "Game.h"
+#include "ResourcesManager.h"
 
 class App {
 public:
@@ -10,5 +11,6 @@ public:
 
 private:
 	RenderManager* renderManager;
-	Game game;
+	ResourcesManager* resourcesManager;
+	Game* game;
 };

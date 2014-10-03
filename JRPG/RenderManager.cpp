@@ -1,10 +1,12 @@
 #include "RenderManager.h"
 
 
-RenderManager::RenderManager()
+RenderManager::RenderManager(ResourcesManager* resourcesManager) : 
+	resourcesManager(resourcesManager),
+	window( new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!")),
+	view(sf::View(sf::Vector2f(0.0f,0.0f), 
+	sf::Vector2f(800.0f,600.0f)))
 {
-	window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!");
-	view = sf::View(sf::Vector2f(0.0f,0.0f), sf::Vector2f(800.0f,600.0f));
 	window->setView(view);
 }
 

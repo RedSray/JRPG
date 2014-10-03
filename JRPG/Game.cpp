@@ -1,6 +1,7 @@
 #include "Game.h"
 
-Game::Game()
+Game::Game(ResourcesManager* resourcesManager) :
+	resourcesManager(resourcesManager)
 {
 
 };
@@ -10,12 +11,9 @@ Game::~Game()
 
 }
 
-void Game::SetScene(Scene newScene)
+void Game::Init()
 {
-	scene = newScene;
-}
+	//fill levelFilesMap thank to resourcesManager
 
-Scene Game::GetScene()
-{
-	return scene;
+	//
 }

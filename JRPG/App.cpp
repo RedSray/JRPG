@@ -1,23 +1,26 @@
 #include "App.h"
-#include "XMLToMemoryHelper.h"
 
-App::App()
+App::App() :
+	resourcesManager(new ResourcesManager()),
+	game(new Game(resourcesManager)),
+	renderManager( new RenderManager(resourcesManager))
+	
 {
-	renderManager = new RenderManager();
-	game = XMLToMemoryHelper::GetGame();
-	game.SetScene(XMLToMemoryHelper::GetScene());
+
 }
 
 App::~App()
 {
 	delete renderManager;
+	delete game;
+	delete resourcesManager;
 }
 
 void App::Run()
 {
 	while(renderManager->WindowIsOpen()){
 		renderManager->PollEvent();
-		renderManager->Update(game);
+		renderManager->Update(*game);
 	}
 }
 

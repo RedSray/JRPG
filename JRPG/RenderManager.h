@@ -1,11 +1,13 @@
 #include <SFML\Graphics.hpp>
-#include "Game.h"
 #include <SFML\System.hpp>
+
+#include "Game.h"
+#include "ResourcesManager.h"
 
 class RenderManager
 {
 public:
-	RenderManager();
+	RenderManager(ResourcesManager*);
 	~RenderManager();
 
 	bool WindowIsOpen();
@@ -16,7 +18,6 @@ private:
 	sf::RenderWindow* window;
 	sf::CircleShape circle;
 	sf::View view;
-	float i;
-	sf::Clock animUpdateClock;
-	float animUpdateTime;
+
+	ResourcesManager* resourcesManager;
 };
