@@ -70,7 +70,6 @@ public:
 
 private:
 	sf::RenderWindow* window;
-
 	sf::Texture tileset;
 	int tilesetSizeX;//in number of tile
 };

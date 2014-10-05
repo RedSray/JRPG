@@ -2,7 +2,9 @@
 
 RenderSystem::RenderSystem()
 {
-	window = new sf::RenderWindow(sf::VideoMode(200, 200), "SFML works!");
+	window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML works!");
+	sf::View view(sf::Vector2f(128.0f,0.0f), sf::Vector2f(800.0,600.0f));
+	window->setView(view);
 }
 
 RenderSystem::~RenderSystem()
@@ -12,7 +14,9 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Init()
 {
-	tileset.loadFromFile("tileset.png");
+	if(!tileset.loadFromFile("terrain.png")){
+		
+	}
 	tilesetSizeX = tileset.getSize().x/TILESET_TILE_PIXELSIZE;
 }
 
@@ -32,14 +36,17 @@ void RenderSystem::PollEvent(){
 
 void RenderSystem::Update(Scene* scene)
 {
+	window->clear();
 	//render tile one by one from top to bottom and left to right
 	for(int i = 0; i < scene->GetMapSize().x; ++i)
 	{
 		for(int j = 0; j < scene->GetMapSize().y; ++j)
 		{
-			sf::IntRect rect(scene->GetTileType(i,j)%tilesetSizeX,scene->GetTileType(i,j)/tilesetSizeX,TILESET_TILE_PIXELSIZE,TILESET_TILE_PIXELSIZE);
+			sf::IntRect rect((scene->GetTileType(i,j)%tilesetSizeX)*TILESET_TILE_PIXELSIZE,(scene->GetTileType(i,j)/tilesetSizeX)*TILESET_TILE_PIXELSIZE,TILESET_TILE_PIXELSIZE,TILESET_TILE_PIXELSIZE);
 			sf::Sprite sprite(tileset, rect);
+			sprite.setPosition(i*32.0f,j*32.0f);
 			window->draw(sprite);
 		}
 	}
+	window->display();
 }
