@@ -2,18 +2,51 @@
 
 Scene::Scene()
 {
-	circle.setRadius(100.0f);
-    circle.setFillColor(sf::Color::Green);
-	circle.setOrigin(100,100);
-	circle.setPosition(0.0f,0.0f);
+	map = new Map();
 }
 
 Scene::~Scene()
 {
+	delete map;
+}
+
+void Scene::Init()
+{
+	map->Init();
+}
+
+sf::Vector2u Scene::GetMapSize()
+{
+	return map->GetSize();
+}
+
+int Scene::GetTileType(int x, int y)
+{
+	return map->GetTileType(x,y);
+}
+
+
+Map::Map()
+{
 
 }
 
-sf::CircleShape Scene::GetCircle()
+Map::~Map()
 {
-	return circle;
+
+}
+
+void Map::Init()
+{
+
+}
+
+int Map::GetTileType(int x, int y)
+{
+
+}
+
+const sf::Vector2u Map::GetSize()
+{
+	return size;
 }

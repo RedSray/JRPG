@@ -1,42 +1,46 @@
 #include "App.h"
 
-App::App() :
-	resourcesManager(new ResourcesManager()),
-	game(new Game(resourcesManager)),
-	renderManager( new RenderManager(resourcesManager))
-	
+App::App()
 {
+	scene = new Scene();
 
-}
+	/*inputSystem = new InputSystem();
+	behaviourSystem = new BehaviourSystem();
+	mouvementSystem = new MouvementSystem();
+	animationSystem = new AnimationSystem();*/
+	renderSystem = new RenderSystem();
+};
 
 App::~App()
 {
-	delete renderManager;
-	delete game;
-	delete resourcesManager;
-}
+	delete renderSystem;
+	/*delete animationSystem;
+	delete mouvementSystem;
+	delete behaviourSystem;
+	delete inputSystem;*/
+
+	delete scene;
+};
+
+void App::Init()
+{
+	scene->Init();
+
+	/*inputSystem->Init();
+	behaviourSystem->Init();
+	mouvementSystem->Init();
+	animationSystem->Init();*/
+	renderSystem->Init();
+};
 
 void App::Run()
 {
-	while(renderManager->WindowIsOpen()){
-		renderManager->PollEvent();
-		renderManager->Update(*game);
+	while(renderSystem->WindowIsOpen()){
+		renderSystem->PollEvent();
+		/*inputSystem->Update();
+		behaviourSystem->Update(scene);
+		mouvementSystem->Update(scene);
+		animationSystem->Update(scene);*/
+		renderSystem->Update(scene);
 	}
-}
-
-/*
-I keep that in a corner in case of need
-it retrives the size of a file without opening it (maybe...I should investigate on how stat work behind the scene)
-#include <sys\stat.h>;
-
-size_t filesize(char *filename){
-	struct stat st;
-	size_t retval =0;
-	if(stat(filename, &st)){
-		printf("can't use stat on %s\n", filename);
-	}else{
-		retval=st.st_size;
-	}
-	return retval;
-}
-*/
+};
