@@ -61,11 +61,10 @@ public:
 	RenderSystem();
 	~RenderSystem();
 
+	bool WindowIsOpen() const;
+
 	void Init();
-
-	bool WindowIsOpen();
 	void PollEvent();
-
 	void Update(Scene*);
 
 private:

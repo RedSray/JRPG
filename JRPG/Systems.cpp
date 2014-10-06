@@ -15,18 +15,18 @@ RenderSystem::~RenderSystem()
 void RenderSystem::Init()
 {
 	if(!tileset.loadFromFile("terrain.png")){
-		
+		//need an error log system
 	}
 	tilesetSizeX = tileset.getSize().x/TILESET_TILE_PIXELSIZE;
 }
 
-bool RenderSystem::WindowIsOpen()
+bool RenderSystem::WindowIsOpen() const
 {
 	return window->isOpen();
 }
 
 void RenderSystem::PollEvent(){
-	 sf::Event event;
+	sf::Event event;
     while (window->pollEvent(event))
     {
         if (event.type == sf::Event::Closed)
@@ -37,7 +37,8 @@ void RenderSystem::PollEvent(){
 void RenderSystem::Update(Scene* scene)
 {
 	window->clear();
-	//render tile one by one from top to bottom and left to right
+	//Render tile one by one from top to bottom and left to right
+	//Will change ...
 	for(int i = 0; i < scene->GetMapSize().x; ++i)
 	{
 		for(int j = 0; j < scene->GetMapSize().y; ++j)
@@ -48,5 +49,6 @@ void RenderSystem::Update(Scene* scene)
 			window->draw(sprite);
 		}
 	}
+
 	window->display();
 }
