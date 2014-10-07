@@ -54,7 +54,7 @@ class Scene
 		Map();
 		~Map();
 
-		void Init();
+		void Init(int,int,std::string);
 		int GetTileType(int,int);
 		const sf::Vector2u GetSize();
 
@@ -71,7 +71,7 @@ public:
 	Scene();
 	~Scene();
 
-	void Init();
+	void Init(int,int,std::string);
 	sf::Vector2u GetMapSize();
 	int GetTileType(int,int);
 

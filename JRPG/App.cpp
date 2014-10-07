@@ -2,6 +2,8 @@
 
 App::App()
 {
+	fileManager = new FileManager();
+
 	scene = new Scene();
 
 	/*inputSystem = new InputSystem();
@@ -20,11 +22,15 @@ App::~App()
 	delete inputSystem;*/
 
 	delete scene;
+
+	delete fileManager;
 };
 
 void App::Init()
 {
-	scene->Init();
+	fileManager->LoadSceneFile("SceneFile.xml");
+	sf::Vector2u size = fileManager->GetMapSize();
+	scene->Init(size.x,size.y,fileManager->GetTileData());
 
 	/*inputSystem->Init();
 	behaviourSystem->Init();

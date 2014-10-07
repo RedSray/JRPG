@@ -10,9 +10,9 @@ Scene::~Scene()
 	delete map;
 }
 
-void Scene::Init()
+void Scene::Init(int mapSizeX, int mapSizeY, std::string mapTileData)
 {
-	map->Init();
+	map->Init(mapSizeX, mapSizeY, mapTileData);
 }
 
 sf::Vector2u Scene::GetMapSize()
@@ -36,11 +36,10 @@ Scene::Map::~Map()
 	
 }
 
-void Scene::Map::Init()
+void Scene::Map::Init(int mapSizeX, int mapSizeY, std::string mapTileData)
 {
-	std::string mapString("42*43*43*43*44-63*64*64*64*65-84*85*85*85*86"); // will be transfer in a file
-	size.x = 5;// will be transfer in a file
-	size.y = 3;// will be transfer in a file
+	size.x = mapSizeX;// will be transfer in a file
+	size.y = mapSizeY;// will be transfer in a file
 
 	tiles.resize(size.x);
 	for(int i = 0; i < size.x; ++i){
@@ -48,12 +47,12 @@ void Scene::Map::Init()
 	}
 
 	std::vector<std::string> mapRowsList;
-	boost::split(mapRowsList,mapString, boost::is_any_of("-"),boost::token_compress_on);
+	boost::split(mapRowsList, mapTileData, boost::is_any_of(" "),boost::token_compress_on);
 
 	for(int j = 0; j < size.y; ++j){
 
 		std::vector<std::string> mapRowTilesValue;
-		boost::split(mapRowTilesValue, mapRowsList[j], boost::is_any_of("*"),boost::token_compress_on);
+		boost::split(mapRowTilesValue, mapRowsList[j], boost::is_any_of("*-_"),boost::token_compress_on);
 
 		for(int i = 0; i < size.x; ++i){
 			tiles[i][j].SetTilesID(boost::lexical_cast<int>(mapRowTilesValue[i]));

@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Systems.h"
+#include "Managers.h"
 
 class App
 {
@@ -24,6 +25,8 @@ private:
 	MouvementSystem* mouvementSystem;
 	AnimationSystem* animationSystem;
 	RenderSystem* renderSystem;
+
+	FileManager* fileManager;
 };
 
 #endif
