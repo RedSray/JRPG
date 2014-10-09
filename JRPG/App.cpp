@@ -2,51 +2,53 @@
 
 App::App()
 {
-	fileManager = new FileManager();
-
-	scene = new Scene();
-
-	/*inputSystem = new InputSystem();
-	behaviourSystem = new BehaviourSystem();
-	mouvementSystem = new MouvementSystem();
-	animationSystem = new AnimationSystem();*/
-	renderSystem = new RenderSystem();
+	window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "JRPG",sf::Style::None);
 };
 
 App::~App()
 {
-	delete renderSystem;
-	/*delete animationSystem;
-	delete mouvementSystem;
-	delete behaviourSystem;
-	delete inputSystem;*/
 
-	delete scene;
-
-	delete fileManager;
 };
 
 void App::Init()
 {
-	fileManager->LoadSceneFile("SceneFile.xml");
-	sf::Vector2u size = fileManager->GetMapSize();
-	scene->Init(size.x,size.y,fileManager->GetTileData());
-
-	/*inputSystem->Init();
-	behaviourSystem->Init();
-	mouvementSystem->Init();
-	animationSystem->Init();*/
-	renderSystem->Init();
+	ChangeState(StateType::Splash);
+	clock.restart();
+	lastFrameDuration = sf::Time::Zero;
 };
 
 void App::Run()
 {
-	while(renderSystem->WindowIsOpen()){
-		renderSystem->PollEvent();
-		/*inputSystem->Update();
-		behaviourSystem->Update(scene);
-		mouvementSystem->Update(scene);
-		animationSystem->Update(scene);*/
-		renderSystem->Update(scene);
+	while(window.isOpen()){
+		sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+		StateType newState = activeState->Update(window, lastFrameDuration);
+
+		window.clear();
+		activeState->Render(window);
+		window.display();
+
+		if(newState != StateType::NoState)  ChangeState(newState);
+		lastFrameDuration = clock.restart();
 	}
 };
+
+void App::ChangeState(StateType newState)
+{
+	if(activeState.get() != nullptr) activeState->OnExit(window);
+	switch(newState)
+	{
+	case StateType::Splash:
+		activeState.reset(new SplashState());
+		break;
+	case StateType::Menu:
+		activeState.reset(new MenuState());
+		break;
+	}
+	activeState->OnEnter(window);
+}

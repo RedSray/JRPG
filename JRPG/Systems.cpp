@@ -14,10 +14,7 @@ RenderSystem::~RenderSystem()
 
 void RenderSystem::Init()
 {
-	if(!tileset.loadFromFile("terrain.png")){
-		//need an error log system
-	}
-	tilesetSizeX = tileset.getSize().x/TILESET_TILE_PIXELSIZE;
+	
 }
 
 bool RenderSystem::WindowIsOpen() const
@@ -34,7 +31,7 @@ void RenderSystem::PollEvent(){
     }
 }
 
-void RenderSystem::Update(Scene* scene)
+void RenderSystem::Update(Scene* scene, TextureManager* textureManager)
 {
 	window->clear();
 	//Render tile one by one from top to bottom and left to right
@@ -43,8 +40,8 @@ void RenderSystem::Update(Scene* scene)
 	{
 		for(int j = 0; j < scene->GetMapSize().y; ++j)
 		{
-			sf::IntRect rect((scene->GetTileType(i,j)%tilesetSizeX)*TILESET_TILE_PIXELSIZE,(scene->GetTileType(i,j)/tilesetSizeX)*TILESET_TILE_PIXELSIZE,TILESET_TILE_PIXELSIZE,TILESET_TILE_PIXELSIZE);
-			sf::Sprite sprite(tileset, rect);
+			
+			sf::Sprite sprite = textureManager->GetSprite(scene->GetTileType(i,j));
 			sprite.setPosition(i*32.0f,j*32.0f);
 			window->draw(sprite);
 		}

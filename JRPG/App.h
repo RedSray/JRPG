@@ -1,9 +1,14 @@
 #ifndef APP_H
 #define APP_H
 
-#include "Scene.h"
-#include "Systems.h"
-#include "Managers.h"
+#include <SFML\Graphics.hpp>
+#include <SFML\Window.hpp>
+
+#include <memory>
+
+#include "State.h"
+#include "SplashState.h"
+#include "MenuState.h"
 
 class App
 {
@@ -13,20 +18,17 @@ public:
 
 	void Init();
 	void Run();
+
+	void ChangeState(StateType);
 	
 private:
 	App(const App&);
 	App& operator= (const App&);
+	sf::RenderWindow window;
 
-	Scene* scene;
-
-	InputSystem* inputSystem;
-	BehaviourSystem* behaviourSystem;
-	MouvementSystem* mouvementSystem;
-	AnimationSystem* animationSystem;
-	RenderSystem* renderSystem;
-
-	FileManager* fileManager;
+	std::unique_ptr<State> activeState;
+	sf::Clock clock;
+	sf::Time lastFrameDuration;
 };
 
 #endif

@@ -19,21 +19,17 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\GitHub\tinyxml2\tinyxml2.h" />
     <ClInclude Include="App.h" />
-    <ClInclude Include="Components.h" />
-    <ClInclude Include="Managers.h" />
-    <ClInclude Include="Scene.h" />
-    <ClInclude Include="Systems.h" />
+    <ClInclude Include="MenuState.h" />
+    <ClInclude Include="SplashState.h" />
+    <ClInclude Include="State.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\GitHub\tinyxml2\tinyxml2.cpp" />
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="Components.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Managers.cpp" />
-    <ClCompile Include="Scene.cpp" />
-    <ClCompile Include="Systems.cpp" />
+    <ClCompile Include="MenuState.cpp" />
+    <ClCompile Include="SplashState.cpp" />
+    <ClCompile Include="State.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{113E536C-ED8B-4310-8372-F9D8182FCDD4}</ProjectGuid>

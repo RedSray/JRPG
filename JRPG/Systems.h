@@ -4,6 +4,7 @@
 #include <SFML\Graphics.hpp>
 
 #include "Scene.h"
+#include "Managers.h";
 
 class InputSystem
 {
@@ -65,7 +66,7 @@ public:
 
 	void Init();
 	void PollEvent();
-	void Update(Scene*);
+	void Update(Scene*, TextureManager*);
 
 private:
 	sf::RenderWindow* window;
