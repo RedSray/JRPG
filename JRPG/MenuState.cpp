@@ -51,8 +51,14 @@ StateType MenuState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration
 	//Update selection according to input
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
 	{
-		return StateType::Splash;
-		std::cout << menuItems[selectedItem].getString().toAnsiString() << std::endl;
+		switch(selectedItem)
+		{
+		case 0: return StateType::Splash;
+			break;
+		case 1 : window.close();
+			break;
+		}
+		
 	}
 
 	//pressing down
