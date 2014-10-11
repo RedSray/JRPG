@@ -29,7 +29,7 @@ void App::Run()
 
 		StateType newState = activeState->Update(window, lastFrameDuration);
 
-		window.clear();
+		window.clear(sf::Color(20,20,20,255));
 		activeState->Render(window);
 		window.display();
 

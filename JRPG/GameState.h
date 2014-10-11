@@ -1,11 +1,19 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
+#include <SFML\Graphics\Texture.hpp>
+#include <SFML\Graphics\Sprite.hpp>
+#include <SFML\Window\Keyboard.hpp>
+
 #include <memory>
 
 #include "State.h"
 #include "ExplorationGameState.h"
 
+struct Tile
+{
+	sf::Vector2i positionInTexture; 
+};
 
 class GameState : public State
 {
@@ -22,6 +30,9 @@ public:
 
 private:
 	std::unique_ptr<State> activeSubState;
+	sf::Texture tileset;
+	std::vector<Tile> tiles;
+	std::vector<std::vector<int>> map;
 };
 
 #endif
