@@ -9,6 +9,7 @@
 #include "State.h"
 #include "SplashState.h"
 #include "MenuState.h"
+#include "GameState.h"
 
 class App
 {

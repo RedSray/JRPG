@@ -49,6 +49,9 @@ void App::ChangeState(StateType newState)
 	case StateType::Menu:
 		activeState.reset(new MenuState());
 		break;
+	case StateType::Game:
+		activeState.reset(new GameState());
+		break;
 	}
 	activeState->OnEnter(window);
 }

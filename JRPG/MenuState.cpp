@@ -53,7 +53,7 @@ StateType MenuState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration
 	{
 		switch(selectedItem)
 		{
-		case 0: return StateType::Splash;
+		case 0: return StateType::Game;
 			break;
 		case 1 : window.close();
 			break;

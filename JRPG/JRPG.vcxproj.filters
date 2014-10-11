@@ -27,6 +27,12 @@
     <ClInclude Include="MenuState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ExplorationGameState.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SplashState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExplorationGameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

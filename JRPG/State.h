@@ -13,7 +13,12 @@ const float WINDOW_HEIGHT = 600;
 enum StateType{
 	NoState,
 	Splash,
-	Menu
+	Menu,
+	Game,
+	Exploration,
+	IGMenu,
+	Paused,
+	Battle
 };
 
 class State
