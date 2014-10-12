@@ -14,7 +14,7 @@ enum StateType{
 	NoState,
 	Splash,
 	Menu,
-	Game,
+	GameScene,
 	Exploration,
 	IGMenu,
 	Paused,

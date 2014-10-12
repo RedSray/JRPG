@@ -49,7 +49,7 @@ void App::ChangeState(StateType newState)
 	case StateType::Menu:
 		activeState.reset(new MenuState());
 		break;
-	case StateType::Game:
+	case StateType::GameScene:
 		activeState.reset(new GameState());
 		break;
 	}

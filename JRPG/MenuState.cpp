@@ -53,7 +53,7 @@ StateType MenuState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration
 	{
 		switch(selectedItem)
 		{
-		case 0: return StateType::Game;
+		case 0: return StateType::GameScene;
 			break;
 		case 1 : window.close();
 			break;

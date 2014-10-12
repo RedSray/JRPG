@@ -10,10 +10,7 @@
 #include "State.h"
 #include "ExplorationGameState.h"
 
-struct Tile
-{
-	sf::Vector2i positionInTexture; 
-};
+#include "Game.h"
 
 class GameState : public State
 {
@@ -31,8 +28,10 @@ public:
 private:
 	std::unique_ptr<State> activeSubState;
 	sf::Texture tileset;
-	std::vector<Tile> tiles;
-	std::vector<std::vector<int>> map;
+	sf::Texture playerExplorationSpritesheet;
+
+	std::shared_ptr<Game> game;
+	
 };
 
 #endif

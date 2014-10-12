@@ -2,7 +2,8 @@
 
 GameState::GameState()
 {
-
+	Game* gametemp = new Game();
+	game.reset(gametemp);
 }
 
 GameState::~GameState()
@@ -12,62 +13,53 @@ GameState::~GameState()
 
 void GameState::OnEnter(sf::RenderWindow& window)
 {
+	
 	if(!tileset.loadFromFile("terrain.png"))
 	{
 		std::cout << "Error loading tileset" << std::endl;
 	}
 
+	if(!playerExplorationSpritesheet.loadFromFile("Kakashi.png"))
+	{
+		std::cout << "Error loading player spritesheet" << std::endl;
+	}
+	
 	Tile tile;
 	tile.positionInTexture.x = 0;
 	tile.positionInTexture.y = 8;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 0;
 	tile.positionInTexture.y = 9;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 0;
 	tile.positionInTexture.y = 10;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 1;
 	tile.positionInTexture.y = 8;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 1;
 	tile.positionInTexture.y = 9;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 1;
 	tile.positionInTexture.y = 10;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 2;
 	tile.positionInTexture.y = 8;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 2;
 	tile.positionInTexture.y = 9;
-	tiles.push_back(tile);
+	game->SetTile(tile);
 	tile.positionInTexture.x = 2;
 	tile.positionInTexture.y = 10;
-	tiles.push_back(tile);
-	
-	map.resize(40);
-	for(int i=0; i < map.size(); ++i)
-	{
-		map[i].resize(40);
-		for(int j=0; j < map[i].size(); ++j)
-		{
-			if(i == 0) map[i][j] = 1;
-			else if(i == map.size()-1) map[i][j] = 7;
-			else if(j == 0) map[i][j] = 3;
-			else if(j ==  map[i].size()-1) map[i][j] = 5;
-			else map[i][j] = 4;
-		}
-	}
+	game->SetTile(tile);
 
-	map[0][0] = 0;
-	map[map.size()-1][map[0].size()-1] = 8;
-	map[map.size()-1][0] = 6;
-	map[0][map[0].size()-1] = 2;
+	game->SetMap(40,40);
+
+	game->SetPlayerWorldPosition(sf::Vector2f(19.0f,19.0f));
 
 	sf::View view(sf::Vector2f(20.0f*32.0f,20.0f*32.0f), sf::Vector2f(800.0f,600.0f));
 	window.setView(view);
-
+	
 	ChangeState(StateType::Exploration, window);
 }
 
@@ -100,16 +92,22 @@ void GameState::Render(sf::RenderWindow& window)
 	tileToRender.setTexture(tileset);
 	tileToRender.setOrigin(16.0f,16.0f);
 
-	for(int i = 0; i < map.size(); ++i)
+	for(int i = 0; i < game->GetMapSize().x; ++i)
 	{
-		for(int j = 0; j < map[i].size(); ++j)
+		for(int j = 0; j < game->GetMapSize().y; ++j)
 		{
-			tileToRender.setTextureRect(sf::IntRect(tiles[map[i][j]].positionInTexture.x*32,tiles[map[i][j]].positionInTexture.y*32,32,32));
+			tileToRender.setTextureRect(sf::IntRect(game->GetTile(game->GetMapCell(i,j)).positionInTexture.x*32,game->GetTile(game->GetMapCell(i,j)).positionInTexture.y*32,32,32));
 			tileToRender.setPosition(i*32.0f,j*32.0f);
 			window.draw(tileToRender);
 		}
 	}
-	
+
+	sf::Sprite playerSprite;
+	playerSprite.setTexture(playerExplorationSpritesheet);
+	playerSprite.setTextureRect(sf::IntRect(0,0,32,32));
+	playerSprite.setOrigin(16.0f,16.0f);
+	playerSprite.setPosition(game->GetPlayerWorldPosition().x*32.0f,game->GetPlayerWorldPosition().y*32.0f);
+	window.draw(playerSprite);
 	activeSubState->Render(window);
 }
 
