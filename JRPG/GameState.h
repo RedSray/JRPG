@@ -7,10 +7,12 @@
 
 #include <memory>
 
+#include "Game.h"
+
 #include "State.h"
 #include "ExplorationGameState.h"
 
-#include "Game.h"
+
 
 class GameState : public State
 {
@@ -27,7 +29,7 @@ public:
 
 private:
 	std::unique_ptr<State> activeSubState;
-	sf::Texture tileset;
+	std::vector<sf::Texture> tilesetTextures;
 	sf::Texture playerExplorationSpritesheet;
 
 	std::shared_ptr<Game> game;

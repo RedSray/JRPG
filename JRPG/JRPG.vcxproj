@@ -25,8 +25,11 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="pugiconfig.hpp" />
+    <ClInclude Include="pugixml.hpp" />
     <ClInclude Include="SplashState.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="TMXMap.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -36,8 +39,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="pugixml.cpp" />
     <ClCompile Include="SplashState.cpp" />
     <ClCompile Include="State.cpp" />
+    <ClCompile Include="TMXMap.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{113E536C-ED8B-4310-8372-F9D8182FCDD4}</ProjectGuid>

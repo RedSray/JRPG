@@ -5,11 +5,7 @@
 #include <memory>
 
 #include "Player.h"
-
-struct Tile
-{
-	sf::Vector2i positionInTexture; 
-};
+#include "TMXMap.h"
 
 class Game
 {
@@ -17,18 +13,21 @@ public:
 	Game();
 	~Game();
 
-	void SetTile(Tile);
-	void SetMap(int,int);
-
 	Tile GetTile(int) const;
-	int GetMapCell(int,int) const;
-	sf::Vector2i GetMapSize();
-	sf::Vector2f GetPlayerWorldPosition();
+	sf::Vector2i GetMapSize() const;
+	sf::Vector2f GetPlayerWorldPosition() const;
+	int GetNbLayer() const;
+	sf::Vector2f GetTileSize() const;
+	int GetLayerCell(int,int,int) const;
+
+	void SetTile(Tile);
 	void SetPlayerWorldPosition(sf::Vector2f);
+	void SetMapSize(sf::Vector2i);
+	void SetTileSize(sf::Vector2f);
+	void SetLayer(std::string, std::string);
 
 private:
-	std::vector<Tile> tiles;
-	std::vector<std::vector<int>> map;
+	TMXMap map;
 	Player player;
 };
 
