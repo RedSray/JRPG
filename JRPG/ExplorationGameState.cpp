@@ -12,10 +12,7 @@ ExplorationGameState::~ExplorationGameState()
 
 void ExplorationGameState::OnEnter(sf::RenderWindow& window)
 {
-	moveGoal = game->GetPlayerWorldPosition();
-	moveGoal.x = (int)moveGoal.x;
-	moveGoal.y = (int)moveGoal.y;
-	game->SetPlayerWorldPosition(moveGoal);
+	game->InitPlayerMovement();
 }
 
 void ExplorationGameState::OnExit(sf::RenderWindow& window)
@@ -24,65 +21,55 @@ void ExplorationGameState::OnExit(sf::RenderWindow& window)
 }
 
 StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration)
-{
-	
+{	
 
-	if(std::abs(moveGoal.x-game->GetPlayerWorldPosition().x) < 0.01f && std::abs(moveGoal.y-game->GetPlayerWorldPosition().y) < 0.01f )
+	if(std::abs(game->GetPlayerMoveGoal().x-game->GetPlayerWorldPosition().x) < 0.02f && std::abs(game->GetPlayerMoveGoal().y-game->GetPlayerWorldPosition().y) < 0.02f )
 	{
-		//reinit speed to 0
-		playerSpeed.x = 0.0f;
-		playerSpeed.y = 0.0f;
-		//replace properly (try to remove float imprecision)
-		moveGoal.x = boost::math::round<float>(moveGoal.x);
-		moveGoal.y = boost::math::round<float>(moveGoal.y);
-		game->SetPlayerWorldPosition(moveGoal);
-
-		
+		game->ReinitPlayerMovement();
+				
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
-			if(moveGoal.y > 0.0f)
+			if(game->GetPlayerMoveGoal().y > 0.0f)
 			{ 
-				moveGoal.y -= 1.0f;
-				std::cout << "movegoal : " << moveGoal.x << "/" << moveGoal.y << std::endl;
-				std::cout << "walkable : " << game->IsCellWalkable(moveGoal) << std::endl;
-				if(!game->IsCellWalkable(moveGoal)) moveGoal.y += 1.0f;
-				else playerSpeed.y = -4.0f;
+				game->MovePlayer(MoveDirection::North);
+				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::South);
+				else game->SetPlayerSpeed('y', -4.0f);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
-			if(moveGoal.y < game->GetMapSize().y-1.0f)
+			if(game->GetPlayerMoveGoal().y < game->GetMapSize().y-1.0f)
 			{
-				moveGoal.y += 1.0f;
-				if(!game->IsCellWalkable(moveGoal)) moveGoal.y -= 1.0f;
-				else playerSpeed.y = 4.0f;
+				game->MovePlayer(MoveDirection::South);
+				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::North);
+				else game->SetPlayerSpeed('y', 4.0f);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
-			if(moveGoal.x > 0.0f) 
+			if(game->GetPlayerMoveGoal().x > 0.0f) 
 			{
-				moveGoal.x -= 1.0f;
-				if(!game->IsCellWalkable(moveGoal)) moveGoal.x += 1.0f;
-				else playerSpeed.x = -4.0f;
+				game->MovePlayer(MoveDirection::West);
+				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::East);
+				else game->SetPlayerSpeed('x', -4.0f);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
-			if(moveGoal.x < game->GetMapSize().x-1.0f)
+			if(game->GetPlayerMoveGoal().x < game->GetMapSize().x-1.0f)
 			{
-				moveGoal.x += 1.0f;
-				if(!game->IsCellWalkable(moveGoal)) moveGoal.x -= 1.0f;
-				else playerSpeed.x = 4.0f;
+				game->MovePlayer(MoveDirection::East);
+				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::West);
+				else game->SetPlayerSpeed('x', 4.0f);
 			}
 		}
 	}
 	else
 	{
 		sf::Vector2f newPosition = game->GetPlayerWorldPosition();
-		newPosition.x += playerSpeed.x*lastFrameDuration.asSeconds();
-		newPosition.y += playerSpeed.y*lastFrameDuration.asSeconds();
+		newPosition.x += game->GetPlayerSpeed().x*lastFrameDuration.asSeconds();
+		newPosition.y += game->GetPlayerSpeed().y*lastFrameDuration.asSeconds();
 		game->SetPlayerWorldPosition(newPosition);
 	}
 

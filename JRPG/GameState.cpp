@@ -66,7 +66,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	}
 
 	//player init
-	if(!playerExplorationSpritesheet.loadFromFile("mysteriousmanKH2.png"))
+	if(!playerExplorationSpritesheet.loadFromFile("playerExplo.png"))
 	{
 		std::cout << "Error loading player spritesheet" << std::endl;
 	}
@@ -124,7 +124,7 @@ void GameState::Render(sf::RenderWindow& window)
 	//prepare the player rendering
 	sf::Sprite playerSprite;
 	playerSprite.setTexture(playerExplorationSpritesheet);
-	playerSprite.setTextureRect(sf::IntRect(32,0,32,32));
+	playerSprite.setTextureRect(sf::IntRect(0,0,32,32));
 	playerSprite.setOrigin(16.0f,16.0f);
 	playerSprite.setPosition(game->GetPlayerWorldPosition().x*32.0f,game->GetPlayerWorldPosition().y*32.0f);
 

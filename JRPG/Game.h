@@ -20,13 +20,22 @@ public:
 	sf::Vector2f GetTileSize() const;
 	int GetLayerCell(int,int,int) const;
 	std::string GetLayerName(int) const;
-	bool IsCellWalkable(sf::Vector2f) const;
 
 	void SetTile(Tile);
 	void SetPlayerWorldPosition(sf::Vector2f);
 	void SetMapSize(sf::Vector2i);
 	void SetTileSize(sf::Vector2f);
 	void SetLayer(std::string, std::string);
+
+	//movement
+	bool IsCellWalkable(sf::Vector2f) const;
+	sf::Vector2f GetPlayerMoveGoal() const;
+	sf::Vector2f GetPlayerSpeed() const;
+
+	void InitPlayerMovement();
+	void ReinitPlayerMovement();
+	void MovePlayer(MoveDirection);
+	void SetPlayerSpeed(char, float);
 
 private:
 	TMXMap map;

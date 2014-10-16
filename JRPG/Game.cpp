@@ -47,14 +47,6 @@ std::string Game::GetLayerName(int l) const
 	return map.GetLayerName(l);
 }
 
-bool Game::IsCellWalkable(sf::Vector2f cell) const
-{
-	sf::Vector2i cellInt;
-	cellInt.x = cell.x;
-	cellInt.y = cell.y;
-	return map.IsCellWalkable(cellInt);
-}
-
 void Game::SetTile(Tile tile)
 {
 	map.SetTile(tile);
@@ -79,5 +71,43 @@ void Game::SetLayer(std::string name, std::string data)
 {
 	std::cout << "data : \n" << data << std::endl;
 	map.SetLayer(name, data);
+}
+
+bool Game::IsCellWalkable(sf::Vector2f cell) const
+{
+	sf::Vector2i cellInt;
+	cellInt.x = cell.x;
+	cellInt.y = cell.y;
+	return map.IsCellWalkable(cellInt);
+}
+
+sf::Vector2f Game::GetPlayerMoveGoal() const
+{
+	return player.GetMoveGoal();
+}
+
+sf::Vector2f Game::GetPlayerSpeed() const
+{
+	return player.GetSpeed();
+}
+
+void Game::InitPlayerMovement()
+{
+	player.InitMovement();
+}
+
+void Game::ReinitPlayerMovement()
+{
+	player.ReinitMovement();
+}
+
+void Game::MovePlayer(MoveDirection moveDirection)
+{
+	player.Move(moveDirection);
+}
+
+void Game::SetPlayerSpeed(char axe, float speed)
+{
+	player.SetSpeed(axe, speed);
 }
 

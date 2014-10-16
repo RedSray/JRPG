@@ -3,8 +3,6 @@
 
 #include <SFML\Window\Keyboard.hpp>
 
-#include <boost\math\special_functions\round.hpp>
-
 #include "GameState.h"
 
 class ExplorationGameState : public State
@@ -20,8 +18,7 @@ public:
 	virtual void Render(sf::RenderWindow&);
 
 private:
-	sf::Vector2f moveGoal;
-	sf::Vector2f playerSpeed;
+	
 	std::shared_ptr<Game> game;
 };
 
