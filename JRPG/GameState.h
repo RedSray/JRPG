@@ -4,6 +4,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Window\Keyboard.hpp>
+#include <SFML\Audio\Music.hpp>
 
 #include <memory>
 
@@ -33,6 +34,8 @@ private:
 	sf::Texture playerExplorationSpritesheet;
 
 	std::shared_ptr<Game> game;
+
+	sf::Music gameMusic;
 	
 };
 

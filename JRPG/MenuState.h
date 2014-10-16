@@ -6,6 +6,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Text.hpp>
 #include <SFML\Window\Keyboard.hpp>
+#include <SFML\Audio\Music.hpp>
 
 #include "State.h"
 
@@ -32,7 +33,8 @@ private:
 	bool selectionAnimationInterverted;
 	sf::Time selectionAnimationTime;
 	sf::Time selectionChangeRepetitionTime;
-	
+
+	sf::Music menumusic;
 	
 };
 
