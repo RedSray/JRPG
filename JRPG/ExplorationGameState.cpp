@@ -25,6 +25,8 @@ void ExplorationGameState::OnExit(sf::RenderWindow& window)
 
 StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration)
 {
+	
+
 	if(std::abs(moveGoal.x-game->GetPlayerWorldPosition().x) < 0.01f && std::abs(moveGoal.y-game->GetPlayerWorldPosition().y) < 0.01f )
 	{
 		//reinit speed to 0
@@ -34,6 +36,8 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		moveGoal.x = boost::math::round<float>(moveGoal.x);
 		moveGoal.y = boost::math::round<float>(moveGoal.y);
 		game->SetPlayerWorldPosition(moveGoal);
+
+		
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{

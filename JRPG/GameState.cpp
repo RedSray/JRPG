@@ -88,6 +88,15 @@ void GameState::OnExit(sf::RenderWindow& window)
 
 StateType GameState::Update(sf::RenderWindow& window, sf::Time elapsedTime)
 {
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+	{
+		return StateType::Menu;
+	}
+
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::F4) && sf::Keyboard::isKeyPressed(sf::Keyboard::LAlt))
+	{
+		window.close();
+	}
 	//view follow the player
 	sf::Vector2f center = game->GetPlayerWorldPosition();
 	center.x *= 32.0f;

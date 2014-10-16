@@ -12,6 +12,9 @@ MenuState::~MenuState()
 
 void MenuState::OnEnter(sf::RenderWindow& window)
 {
+	sf::View view(sf::Vector2f(0,0),sf::Vector2f(WINDOW_WIDTH,WINDOW_HEIGHT));
+	window.setView(view);
+
 	titleFont.loadFromFile("LEVIBRUSH.TTF");
 	menuFont.loadFromFile("linowrite.ttf");
 
@@ -126,6 +129,7 @@ StateType MenuState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration
 
 void MenuState::Render(sf::RenderWindow& window)
 {
+	std::cout <<"render menu"<<std::endl;
 	window.draw(title);
 
 	for(int i=0; i < menuItems.size(); ++i)
