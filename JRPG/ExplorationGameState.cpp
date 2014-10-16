@@ -40,7 +40,10 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			if(moveGoal.y > 0.0f)
 			{ 
 				moveGoal.y -= 1.0f;
-				playerSpeed.y = -4.0f;
+				std::cout << "movegoal : " << moveGoal.x << "/" << moveGoal.y << std::endl;
+				std::cout << "walkable : " << game->IsCellWalkable(moveGoal) << std::endl;
+				if(!game->IsCellWalkable(moveGoal)) moveGoal.y += 1.0f;
+				else playerSpeed.y = -4.0f;
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -48,7 +51,8 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			if(moveGoal.y < game->GetMapSize().y-1.0f)
 			{
 				moveGoal.y += 1.0f;
-				playerSpeed.y = 4.0f;
+				if(!game->IsCellWalkable(moveGoal)) moveGoal.y -= 1.0f;
+				else playerSpeed.y = 4.0f;
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -56,7 +60,8 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			if(moveGoal.x > 0.0f) 
 			{
 				moveGoal.x -= 1.0f;
-				playerSpeed.x = -4.0f;
+				if(!game->IsCellWalkable(moveGoal)) moveGoal.x += 1.0f;
+				else playerSpeed.x = -4.0f;
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -64,7 +69,8 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			if(moveGoal.x < game->GetMapSize().x-1.0f)
 			{
 				moveGoal.x += 1.0f;
-				playerSpeed.x = 4.0f;
+				if(!game->IsCellWalkable(moveGoal)) moveGoal.x -= 1.0f;
+				else playerSpeed.x = 4.0f;
 			}
 		}
 	}

@@ -36,25 +36,28 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	int textureID = 0;
 	for (pugi::xml_node tilesetNode = mapNode.child("tileset"); tilesetNode; tilesetNode = tilesetNode.next_sibling("tileset"))
 	{
-		sf::Texture newTexture;
-		if(!newTexture.loadFromFile(tilesetNode.child("image").attribute("source").as_string()))
+		if(!tilesetNode.child("properties").child("property").attribute("value").as_bool())
 		{
-			std::cout << "could not load " << tilesetNode.child("image").attribute("source").as_string() << std::endl;
-		}
-		tilesetTextures.push_back(newTexture);
-		
-		for(int i = 0; i*32 < tilesetNode.child("image").attribute("height").as_int(); ++i)
-		{
-			for(int j = 0; j*32 < tilesetNode.child("image").attribute("width").as_int(); ++j)
+			sf::Texture newTexture;
+			if(!newTexture.loadFromFile(tilesetNode.child("image").attribute("source").as_string()))
 			{
-				Tile tile;
-				tile.positionInTexture = sf::Vector2i(j*32,i*32);
-				tile.textureID = textureID;
-				game->SetTile(tile);
+				std::cout << "could not load " << tilesetNode.child("image").attribute("source").as_string() << std::endl;
 			}
-		}
+			tilesetTextures.push_back(newTexture);
+		
+			for(int i = 0; i*32 < tilesetNode.child("image").attribute("height").as_int(); ++i)
+			{
+				for(int j = 0; j*32 < tilesetNode.child("image").attribute("width").as_int(); ++j)
+				{
+					Tile tile;
+					tile.positionInTexture = sf::Vector2i(j*32,i*32);
+					tile.textureID = textureID;
+					game->SetTile(tile);
+				}
+			}
 
-		++textureID;
+			++textureID;
+		}
 	}
 	//loop over layers
 	for (pugi::xml_node layerNode = mapNode.child("layer"); layerNode; layerNode = layerNode.next_sibling("layer"))
@@ -68,7 +71,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 		std::cout << "Error loading player spritesheet" << std::endl;
 	}
 
-	game->SetPlayerWorldPosition(sf::Vector2f(19.0f,19.0f));
+	game->SetPlayerWorldPosition(sf::Vector2f(36.0f,10.0f));
 
 	//view init
 	sf::View view(sf::Vector2f(20.0f*32.0f,20.0f*32.0f), sf::Vector2f(800.0f,600.0f));
@@ -97,34 +100,42 @@ StateType GameState::Update(sf::RenderWindow& window, sf::Time elapsedTime)
 
 void GameState::Render(sf::RenderWindow& window)
 {
-	sf::Sprite tileSprite;
-	tileSprite.setOrigin(game->GetTileSize().x/2,game->GetTileSize().y/2);
-	//layers render loop
-	for(int l =0; l < game->GetNbLayer();++l)
-	{
-		for(int i = 0; i < game->GetMapSize().x; ++i)
-		{
-			for(int j = 0; j < game->GetMapSize().y; ++j)
-			{
-				int tileID = game->GetLayerCell(l,i,j);
-				if(tileID >= 0)
-				{
-					Tile tile = game->GetTile(tileID);
-					tileSprite.setTexture(tilesetTextures[tile.textureID]);
-					tileSprite.setTextureRect(sf::IntRect(tile.positionInTexture.x,tile.positionInTexture.y,game->GetTileSize().x,game->GetTileSize().y));
-					tileSprite.setPosition(game->GetTileSize().x*i,game->GetTileSize().y*j);
-					window.draw(tileSprite);
-				}
-			}
-		}
-	}
-	//render player
+	//prepare the player rendering
 	sf::Sprite playerSprite;
 	playerSprite.setTexture(playerExplorationSpritesheet);
 	playerSprite.setTextureRect(sf::IntRect(32,0,32,32));
 	playerSprite.setOrigin(16.0f,16.0f);
 	playerSprite.setPosition(game->GetPlayerWorldPosition().x*32.0f,game->GetPlayerWorldPosition().y*32.0f);
-	window.draw(playerSprite);
+
+
+	sf::Sprite tileSprite;
+	tileSprite.setOrigin(game->GetTileSize().x/2,game->GetTileSize().y/2);
+	//layers render loop
+	for(int l =0; l < game->GetNbLayer();++l)
+	{
+		if(game->GetLayerName(l) == "Entities")
+		{
+			window.draw(playerSprite); //render player but not the layer itself (the layer only contain physics data)
+		}
+		else
+		{
+			for(int i = 0; i < game->GetMapSize().x; ++i)
+			{
+				for(int j = 0; j < game->GetMapSize().y; ++j)
+				{
+					int tileID = game->GetLayerCell(l,i,j);
+					if(tileID >= 0)
+					{
+						Tile tile = game->GetTile(tileID);
+						tileSprite.setTexture(tilesetTextures[tile.textureID]);
+						tileSprite.setTextureRect(sf::IntRect(tile.positionInTexture.x,tile.positionInTexture.y,game->GetTileSize().x,game->GetTileSize().y));
+						tileSprite.setPosition(game->GetTileSize().x*i,game->GetTileSize().y*j);
+						window.draw(tileSprite);
+					}
+				}
+			}
+		}
+	}
 
 	activeSubState->Render(window);
 }

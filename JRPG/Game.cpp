@@ -42,6 +42,19 @@ int Game::GetLayerCell(int layer, int x, int y) const
 	return map.GetLayerCell(layer,x,y);
 }
 
+std::string Game::GetLayerName(int l) const
+{
+	return map.GetLayerName(l);
+}
+
+bool Game::IsCellWalkable(sf::Vector2f cell) const
+{
+	sf::Vector2i cellInt;
+	cellInt.x = cell.x;
+	cellInt.y = cell.y;
+	return map.IsCellWalkable(cellInt);
+}
+
 void Game::SetTile(Tile tile)
 {
 	map.SetTile(tile);

@@ -19,6 +19,8 @@ public:
 	int GetNbLayer() const;
 	sf::Vector2f GetTileSize() const;
 	int GetLayerCell(int,int,int) const;
+	std::string GetLayerName(int) const;
+	bool IsCellWalkable(sf::Vector2f) const;
 
 	void SetTile(Tile);
 	void SetPlayerWorldPosition(sf::Vector2f);
