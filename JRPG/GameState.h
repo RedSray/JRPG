@@ -1,6 +1,8 @@
 #ifndef GAMESTATE_H
 #define GAMESTATE_H
 
+#include <boost\math\special_functions\round.hpp>
+
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Window\Keyboard.hpp>

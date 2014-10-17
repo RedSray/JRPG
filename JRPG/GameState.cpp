@@ -30,7 +30,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	pugi::xml_node mapNode = doc.child("map");
 
 	game->SetMapSize(sf::Vector2i(mapNode.attribute("width").as_int(),mapNode.attribute("height").as_int()));
-	game->SetTileSize(sf::Vector2f(mapNode.attribute("tilewidth").as_float(),mapNode.attribute("tileheight").as_float()));
+	game->SetTileSize(sf::Vector2i(mapNode.attribute("tilewidth").as_int(),mapNode.attribute("tileheight").as_int()));
 
 	//loop over tilesets
 	int textureID = 0;
@@ -135,9 +135,9 @@ StateType GameState::Update(sf::RenderWindow& window, sf::Time elapsedTime)
 	}
 	//view follow the player
 	sf::Vector2f center = game->GetPlayerWorldPosition();
-	center.x *= 32.0f;
-	center.y *= 32.0f;
-	sf::View view(center,sf::Vector2f(800.0f,600.0f));
+	center.x = boost::math::round<float>(center.x*32.0f);
+	center.y =  boost::math::round<float>(center.y*32.0f);
+	sf::View view(center,sf::Vector2f(800,600));
 	window.setView(view);
 
 	return activeSubState->Update(window, elapsedTime);

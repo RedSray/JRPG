@@ -32,7 +32,7 @@ int Game::GetNbLayer() const
 	return map.GetNbLayer();
 }
 
-sf::Vector2f Game::GetTileSize() const
+sf::Vector2i Game::GetTileSize() const
 {
 	return map.GetTileSize();
 }
@@ -57,7 +57,7 @@ void Game::SetPlayerWorldPosition(sf::Vector2f newPosition)
 	player.SetWorldPosition(newPosition);
 }
 
-void Game::SetTileSize(sf::Vector2f size)
+void Game::SetTileSize(sf::Vector2i size)
 {
 	map.SetTileSize(size);
 }

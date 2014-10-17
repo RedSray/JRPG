@@ -3,6 +3,7 @@
 App::App()
 {
 	window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "JRPG",sf::Style::None);
+
 };
 
 App::~App()
