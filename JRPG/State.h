@@ -6,8 +6,8 @@
 #include <SFML\Graphics\RenderWindow.hpp>
 
 //actually it's the most conveniant place to put  that//
-const float WINDOW_WIDTH = 800;
-const float WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 800;
+const unsigned int WINDOW_HEIGHT = 600;
 //END//
 
 enum StateType{

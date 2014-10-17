@@ -30,6 +30,8 @@ private:
 	std::unique_ptr<State> activeState;
 	sf::Clock clock;
 	sf::Time lastFrameDuration;
+
+	sf::Color clearColor;
 };
 
 #endif
