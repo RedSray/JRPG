@@ -111,3 +111,37 @@ void Game::SetPlayerSpeed(char axe, float speed)
 	player.SetSpeed(axe, speed);
 }
 
+int Game::GetPlayerActiveAnimFPS() const
+{
+	return player.GetActiveAnimFPS();
+}
+
+int Game::GetPlayerActiveAnime() const
+{
+	return player.GetActiveAnim();
+}
+
+int Game::GetPlayerActiveAnimeFrame() const
+{
+	return player.GetActiveAnimFrame();
+}
+
+void Game::PlayerNextAnimFrame()
+{
+	player.NextAnimFrame();
+}
+
+void Game::SetPlayerActiveAnim(int id)
+{
+	player.SetActiveAnim(id);
+}
+
+void Game::SetPlayerActiveAnimFrame(int id)
+{
+	player.SetActiveAnimFrame(id);
+}
+
+void Game::AddPlayerAnimation(Animation animation)
+{
+	player.AddAnimation(animation);
+}

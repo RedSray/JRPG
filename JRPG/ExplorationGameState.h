@@ -18,7 +18,7 @@ public:
 	virtual void Render(sf::RenderWindow&);
 
 private:
-	
+	sf::Time AnimUpdateTimer;
 	std::shared_ptr<Game> game;
 };
 

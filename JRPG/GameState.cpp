@@ -71,13 +71,37 @@ void GameState::OnEnter(sf::RenderWindow& window)
 		std::cout << "Error loading player spritesheet" << std::endl;
 	}
 
+	Animation animation;
+	animation.fps = 8;
+	animation.LoopFrame = 1;
+	animation.framesID.resize(3);
+	animation.framesID[0] = 10;
+	animation.framesID[1] = 11;
+	animation.framesID[2] = 9;
+	game->AddPlayerAnimation(animation);//haut
+	animation.framesID[0] = 1;
+	animation.framesID[1] = 2;
+	animation.framesID[2] = 0;
+	game->AddPlayerAnimation(animation);//bas
+	animation.framesID[0] = 4;
+	animation.framesID[1] = 5;
+	animation.framesID[2] = 3;
+	game->AddPlayerAnimation(animation);//gauche
+	animation.framesID[0] = 7;
+	animation.framesID[1] = 8;
+	animation.framesID[2] = 6;
+	game->AddPlayerAnimation(animation);//droite
+
+	game->SetPlayerActiveAnim(1);
+	game->SetPlayerActiveAnimFrame(0);
+
 	game->SetPlayerWorldPosition(sf::Vector2f(36.0f,10.0f));
 
 	//view init
 	sf::View view(sf::Vector2f(20.0f*32.0f,20.0f*32.0f), sf::Vector2f(800.0f,600.0f));
 	window.setView(view);
 
-	if(!gameMusic.openFromFile("TakuAndYukiGame.wav"))
+	if(!gameMusic.openFromFile("YukiAndTakuGame.wav"))
 	{
 		std::cout << "cannot open menu music file" << std::endl;
 	}
@@ -85,7 +109,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	{
 		gameMusic.setLoop(true);
 		gameMusic.setVolume(25);
-		gameMusic.play();
+	//	gameMusic.play();
 	}
 
 	
@@ -124,7 +148,9 @@ void GameState::Render(sf::RenderWindow& window)
 	//prepare the player rendering
 	sf::Sprite playerSprite;
 	playerSprite.setTexture(playerExplorationSpritesheet);
-	playerSprite.setTextureRect(sf::IntRect(0,0,32,32));
+	int frameID = game->GetPlayerActiveAnimeFrame();
+	sf::IntRect spriteRect(32*(frameID%(playerExplorationSpritesheet.getSize().x/32)),32*(frameID/(playerExplorationSpritesheet.getSize().x/32)),32,32);
+	playerSprite.setTextureRect(spriteRect);
 	playerSprite.setOrigin(16.0f,16.0f);
 	playerSprite.setPosition(game->GetPlayerWorldPosition().x*32.0f,game->GetPlayerWorldPosition().y*32.0f);
 

@@ -30,6 +30,12 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 
 		if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
+			if(game->GetPlayerActiveAnime() != 0)
+			{
+				game->SetPlayerActiveAnim(0);
+				game->SetPlayerActiveAnimFrame(0);
+			}
+
 			if(game->GetPlayerMoveGoal().y > 0.0f)
 			{ 
 				game->MovePlayer(MoveDirection::North);
@@ -39,6 +45,12 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		{
+			if(game->GetPlayerActiveAnime() != 1)
+			{
+				game->SetPlayerActiveAnim(1);
+				game->SetPlayerActiveAnimFrame(0);
+			}
+
 			if(game->GetPlayerMoveGoal().y < game->GetMapSize().y-1.0f)
 			{
 				game->MovePlayer(MoveDirection::South);
@@ -48,6 +60,12 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 		{
+			if(game->GetPlayerActiveAnime() != 2)
+			{
+				game->SetPlayerActiveAnim(2);
+				game->SetPlayerActiveAnimFrame(0);
+			}
+
 			if(game->GetPlayerMoveGoal().x > 0.0f) 
 			{
 				game->MovePlayer(MoveDirection::West);
@@ -57,6 +75,11 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
+			if(game->GetPlayerActiveAnime() != 3)
+			{
+				game->SetPlayerActiveAnim(3);
+				game->SetPlayerActiveAnimFrame(0);
+			}
 			if(game->GetPlayerMoveGoal().x < game->GetMapSize().x-1.0f)
 			{
 				game->MovePlayer(MoveDirection::East);
@@ -73,7 +96,24 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		game->SetPlayerWorldPosition(newPosition);
 	}
 
+	if(0 == game->GetPlayerSpeed().x && 0 == game->GetPlayerSpeed().y)
+	{
+		game->SetPlayerActiveAnimFrame(0);
+		AnimUpdateTimer = sf::Time::Zero;
+	}
 	
+	//upate player animation
+	
+	if(AnimUpdateTimer.asSeconds() >= (1.0/game->GetPlayerActiveAnimFPS()))
+	{
+		std::cout << "update anim frame : " << AnimUpdateTimer.asSeconds() << "/" << 1.0/game->GetPlayerActiveAnimFPS() << std::endl;
+		game->PlayerNextAnimFrame();
+		AnimUpdateTimer = sf::Time::Zero;
+	}
+	else 
+	{
+		AnimUpdateTimer += lastFrameDuration;
+	}
 
 	return StateType::NoState;
 }

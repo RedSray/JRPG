@@ -37,6 +37,16 @@ public:
 	void MovePlayer(MoveDirection);
 	void SetPlayerSpeed(char, float);
 
+	//animation
+	int GetPlayerActiveAnimFPS() const;
+	int GetPlayerActiveAnimeFrame() const;
+	int GetPlayerActiveAnime() const;
+
+	void PlayerNextAnimFrame();
+	void SetPlayerActiveAnim(int);
+	void SetPlayerActiveAnimFrame(int);
+	void AddPlayerAnimation(Animation);
+
 private:
 	TMXMap map;
 	Player player;
