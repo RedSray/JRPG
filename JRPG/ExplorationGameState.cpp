@@ -92,20 +92,19 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			}
 		}
 	}
-	else
-	{
-		sf::Vector2f newPosition = game->GetPlayerWorldPosition();
+	
+	sf::Vector2f newPosition = game->GetPlayerWorldPosition();
 
-		newPosition.x += game->GetPlayerSpeed().x*lastFrameDuration.asSeconds();
-		if(game->GetPlayerSpeed().x > 0.0 && newPosition.x > game->GetPlayerMoveGoal().x) newPosition.x = game->GetPlayerMoveGoal().x;
-		if(game->GetPlayerSpeed().x < 0.0 && newPosition.x < game->GetPlayerMoveGoal().x) newPosition.x = game->GetPlayerMoveGoal().x;
+	newPosition.x += game->GetPlayerSpeed().x*lastFrameDuration.asSeconds();
+	if(game->GetPlayerSpeed().x > 0.0 && newPosition.x > game->GetPlayerMoveGoal().x && sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) newPosition.x = game->GetPlayerMoveGoal().x;
+	if(game->GetPlayerSpeed().x < 0.0 && newPosition.x < game->GetPlayerMoveGoal().x && sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) newPosition.x = game->GetPlayerMoveGoal().x;
 
-		newPosition.y += game->GetPlayerSpeed().y*lastFrameDuration.asSeconds();
-		if(game->GetPlayerSpeed().y > 0.0 && newPosition.y > game->GetPlayerMoveGoal().y) newPosition.y = game->GetPlayerMoveGoal().y;
-		if(game->GetPlayerSpeed().y < 0.0 && newPosition.y < game->GetPlayerMoveGoal().y) newPosition.y = game->GetPlayerMoveGoal().y;
+	newPosition.y += game->GetPlayerSpeed().y*lastFrameDuration.asSeconds();
+	if(game->GetPlayerSpeed().y > 0.0 && newPosition.y > game->GetPlayerMoveGoal().y && sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) newPosition.y = game->GetPlayerMoveGoal().y;
+	if(game->GetPlayerSpeed().y < 0.0 && newPosition.y < game->GetPlayerMoveGoal().y && sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) newPosition.y = game->GetPlayerMoveGoal().y;
 
-		game->SetPlayerWorldPosition(newPosition);
-	}
+	game->SetPlayerWorldPosition(newPosition);
+	
 
 	if(0 == game->GetPlayerSpeed().x && 0 == game->GetPlayerSpeed().y)
 	{

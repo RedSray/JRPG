@@ -3,7 +3,7 @@
 App::App()
 {
 	window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "JRPG",sf::Style::None);
-	//window.setFramerateLimit(90);
+	//window.setFramerateLimit(30);
 };
 
 App::~App()
