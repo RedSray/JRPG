@@ -98,7 +98,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	game->SetPlayerWorldPosition(sf::Vector2f(36.0f,10.0f));
 
 	//view init
-	sf::View view(sf::Vector2f(20.0f*32.0f,20.0f*32.0f), sf::Vector2f(800.0f,600.0f));
+	sf::View view(sf::Vector2f(20.0f*32.0f,10.0f*32.0f), sf::Vector2f(800.0f,600.0f));
 	window.setView(view);
 
 	if(!gameMusic.openFromFile("YukiAndTakuGame.wav"))
@@ -135,9 +135,19 @@ StateType GameState::Update(sf::RenderWindow& window, sf::Time elapsedTime)
 	}
 	//view follow the player
 	sf::Vector2f center = game->GetPlayerWorldPosition();
+	// 400 and 300 are half of the view size and 16 is for the offset apply to tiles through origin
 	center.x = boost::math::round<float>(center.x*32.0f);
+	if(center.x < 400-16) center.x = 400-16;
+	if(center.x > game->GetMapSize().x*32 - (400+16)) center.x = game->GetMapSize().x*32 - (400+16);
+
 	center.y =  boost::math::round<float>(center.y*32.0f);
+	if(center.y < 300) center.y = 300;
+	if(center.y > game->GetMapSize().y*32 - (300+16)) center.y = game->GetMapSize().y*32 - (300+16);
+
 	sf::View view(center,sf::Vector2f(800,600));
+
+	
+
 	window.setView(view);
 
 	return activeSubState->Update(window, elapsedTime);
