@@ -5,6 +5,8 @@
 
 #include "GameState.h"
 
+const float movementSpeed = 4.0f;
+
 class ExplorationGameState : public State
 {
 public:

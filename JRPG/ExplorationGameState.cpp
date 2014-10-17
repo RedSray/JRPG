@@ -22,8 +22,12 @@ void ExplorationGameState::OnExit(sf::RenderWindow& window)
 
 StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration)
 {	
-
-	if(std::abs(game->GetPlayerMoveGoal().x-game->GetPlayerWorldPosition().x) < 0.02f && std::abs(game->GetPlayerMoveGoal().y-game->GetPlayerWorldPosition().y) < 0.02f )
+	//std::abs(game->GetPlayerMoveGoal().x-game->GetPlayerWorldPosition().x) < 0.02f && std::abs(game->GetPlayerMoveGoal().y-game->GetPlayerWorldPosition().y) < 0.02f 
+	if((game->GetPlayerSpeed().x > 0.0f && game->GetPlayerWorldPosition().x >= game->GetPlayerMoveGoal().x) || 
+		(game->GetPlayerSpeed().x < 0.0f && game->GetPlayerWorldPosition().x <= game->GetPlayerMoveGoal().x) || 
+		(game->GetPlayerSpeed().y > 0.0f && game->GetPlayerWorldPosition().y >= game->GetPlayerMoveGoal().y) || 
+		(game->GetPlayerSpeed().y < 0.0f && game->GetPlayerWorldPosition().y <= game->GetPlayerMoveGoal().y) || 
+		(0 == game->GetPlayerSpeed().x && 0 == game->GetPlayerSpeed().y))
 	{
 		game->ReinitPlayerMovement();
 				
@@ -40,7 +44,7 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			{ 
 				game->MovePlayer(MoveDirection::North);
 				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::South);
-				else game->SetPlayerSpeed('y', -4.0f);
+				else game->SetPlayerSpeed('y', -movementSpeed);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
@@ -55,7 +59,7 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			{
 				game->MovePlayer(MoveDirection::South);
 				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::North);
-				else game->SetPlayerSpeed('y', 4.0f);
+				else game->SetPlayerSpeed('y', movementSpeed);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
@@ -70,7 +74,7 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			{
 				game->MovePlayer(MoveDirection::West);
 				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::East);
-				else game->SetPlayerSpeed('x', -4.0f);
+				else game->SetPlayerSpeed('x', -movementSpeed);
 			}
 		}
 		else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
@@ -84,15 +88,22 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 			{
 				game->MovePlayer(MoveDirection::East);
 				if(!game->IsCellWalkable(game->GetPlayerMoveGoal())) game->MovePlayer(MoveDirection::West);
-				else game->SetPlayerSpeed('x', 4.0f);
+				else game->SetPlayerSpeed('x', movementSpeed);
 			}
 		}
 	}
 	else
 	{
 		sf::Vector2f newPosition = game->GetPlayerWorldPosition();
+
 		newPosition.x += game->GetPlayerSpeed().x*lastFrameDuration.asSeconds();
+		if(game->GetPlayerSpeed().x > 0.0 && newPosition.x > game->GetPlayerMoveGoal().x) newPosition.x = game->GetPlayerMoveGoal().x;
+		if(game->GetPlayerSpeed().x < 0.0 && newPosition.x < game->GetPlayerMoveGoal().x) newPosition.x = game->GetPlayerMoveGoal().x;
+
 		newPosition.y += game->GetPlayerSpeed().y*lastFrameDuration.asSeconds();
+		if(game->GetPlayerSpeed().y > 0.0 && newPosition.y > game->GetPlayerMoveGoal().y) newPosition.y = game->GetPlayerMoveGoal().y;
+		if(game->GetPlayerSpeed().y < 0.0 && newPosition.y < game->GetPlayerMoveGoal().y) newPosition.y = game->GetPlayerMoveGoal().y;
+
 		game->SetPlayerWorldPosition(newPosition);
 	}
 
