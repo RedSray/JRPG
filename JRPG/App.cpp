@@ -32,6 +32,7 @@ void App::Run()
 
 		window.clear(clearColor);
 		activeState->Render(window);
+		activeState->RenderGUI(window);
 		window.display();
 
 		if(newState != StateType::NoState)  ChangeState(newState);

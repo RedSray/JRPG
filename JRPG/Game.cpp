@@ -145,3 +145,18 @@ void Game::AddPlayerAnimation(Animation animation)
 {
 	player.AddAnimation(animation);
 }
+
+int Game::GetNbEntities() const
+{
+	return map.GetNbEntities();
+}
+
+std::unique_ptr<Entity>& Game::GetEntity(int id)
+{
+	return map.GetEntity(id);
+}
+
+void Game::SetEntity(Entity* newEntity)
+{
+	map.SetEntity(newEntity);
+}

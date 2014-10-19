@@ -147,3 +147,8 @@ void MenuState::Render(sf::RenderWindow& window)
 		window.draw(menuItems[i]);
 	}
 }
+
+void MenuState::RenderGUI(sf::RenderWindow&)
+{
+
+}

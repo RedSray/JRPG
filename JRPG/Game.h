@@ -47,6 +47,13 @@ public:
 	void SetPlayerActiveAnimFrame(int);
 	void AddPlayerAnimation(Animation);
 
+	//Entities
+	int GetNbEntities() const;
+
+	std::unique_ptr<Entity>& GetEntity(int);
+
+	void SetEntity(Entity*);
+
 private:
 	TMXMap map;
 	Player player;
