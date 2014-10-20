@@ -6,8 +6,8 @@
 #include <SFML\Graphics\RenderWindow.hpp>
 
 //actually it's the most conveniant place to put  that//
-const float WINDOW_WIDTH = 800;
-const float WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 800;
+const unsigned int WINDOW_HEIGHT = 600;
 //END//
 
 enum StateType{
@@ -32,6 +32,7 @@ public:
 
 	virtual StateType Update(sf::RenderWindow&, sf::Time) = 0; //return the ID of the new state or -1
 	virtual void Render(sf::RenderWindow&) = 0;
+	virtual void RenderGUI(sf::RenderWindow&) = 0;
 
 private:
 	State(const State&);

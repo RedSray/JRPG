@@ -30,8 +30,9 @@ void App::Run()
 
 		StateType newState = activeState->Update(window, lastFrameDuration);
 
-		window.clear(sf::Color(20,20,20,255));
+		window.clear(clearColor);
 		activeState->Render(window);
+		activeState->RenderGUI(window);
 		window.display();
 
 		if(newState != StateType::NoState)  ChangeState(newState);
@@ -46,12 +47,15 @@ void App::ChangeState(StateType newState)
 	{
 	case StateType::Splash:
 		activeState.reset(new SplashState());
+		clearColor = sf::Color::Black;
 		break;
 	case StateType::Menu:
 		activeState.reset(new MenuState());
+		clearColor = sf::Color(20,20,20,255);
 		break;
 	case StateType::GameScene:
 		activeState.reset(new GameState());
+		clearColor = sf::Color::Black;
 		break;
 	}
 	activeState->OnEnter(window);
