@@ -57,8 +57,3 @@ void SplashState::Render(sf::RenderWindow& window)
 {
 	window.draw(splash);
 }
-
-void SplashState::RenderGUI(sf::RenderWindow&)
-{
-
-}

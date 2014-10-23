@@ -32,7 +32,6 @@ public:
 
 	virtual StateType Update(sf::RenderWindow&, sf::Time) = 0; //return the ID of the new state or -1
 	virtual void Render(sf::RenderWindow&) = 0;
-	virtual void RenderGUI(sf::RenderWindow&) = 0;
 
 private:
 	State(const State&);

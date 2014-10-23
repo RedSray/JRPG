@@ -125,26 +125,10 @@ StateType ExplorationGameState::Update(sf::RenderWindow& window, sf::Time lastFr
 		AnimUpdateTimer += lastFrameDuration;
 	}
 
-	for(int i =0; i < game->GetNbEntities(); ++i)
-	{
-		game->GetEntity(i)->ExplorationUpdate(window);
-	}
-
 	return StateType::NoState;
 }
 
 void ExplorationGameState::Render(sf::RenderWindow& window)
 {
-	for(int i =0; i < game->GetNbEntities(); ++i)
-	{
-		game->GetEntity(i)->ExplorationRender(window);
-	}
-}
 
-void ExplorationGameState::RenderGUI(sf::RenderWindow& window)
-{
-	for(int i =0; i < game->GetNbEntities(); ++i)
-	{
-		game->GetEntity(i)->ExplorationGUIRender(window);
-	}
 }

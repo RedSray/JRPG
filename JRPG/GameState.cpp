@@ -65,10 +65,6 @@ void GameState::OnEnter(sf::RenderWindow& window)
 		game->SetLayer(layerNode.attribute("name").as_string(), layerNode.child("data").text().as_string());
 	}
 
-	//Entities
-	InfoBoard* test = new InfoBoard();
-	game->SetEntity(test);
-
 	//player init
 	if(!playerExplorationSpritesheet.loadFromFile("playerExplo.png"))
 	{
@@ -177,7 +173,6 @@ void GameState::Render(sf::RenderWindow& window)
 		if(game->GetLayerName(l) == "Entities")
 		{
 			window.draw(playerSprite); //render player but not the layer itself (the layer only contain physics data)
-			activeSubState->Render(window);
 		}
 		else
 		{
@@ -200,11 +195,6 @@ void GameState::Render(sf::RenderWindow& window)
 	}
 
 	activeSubState->Render(window);
-}
-
-void GameState::RenderGUI(sf::RenderWindow& window)
-{
-	activeSubState->RenderGUI(window);
 }
 
 void GameState::ChangeState(StateType newState, sf::RenderWindow& window)

@@ -14,7 +14,6 @@
 
 #include "State.h"
 #include "ExplorationGameState.h"
-#include "InfoBoard.h"
 
 
 
@@ -29,7 +28,6 @@ public:
 
 	virtual StateType Update(sf::RenderWindow&, sf::Time); //return the ID of the new state or -1
 	virtual void Render(sf::RenderWindow&);
-	virtual void RenderGUI(sf::RenderWindow&);
 	void ChangeState(StateType, sf::RenderWindow&);
 
 private:
