@@ -101,7 +101,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 	sf::View view(sf::Vector2f(20.0f*32.0f,10.0f*32.0f), sf::Vector2f(800.0f,600.0f));
 	window.setView(view);
 
-	if(!gameMusic.openFromFile("YukiAndTakuGame.wav"))
+	/*if(!gameMusic.openFromFile("YukiAndTakuGame.wav"))
 	{
 		std::cout << "cannot open menu music file" << std::endl;
 	}
@@ -110,7 +110,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 		gameMusic.setLoop(true);
 		gameMusic.setVolume(25);
 	//	gameMusic.play();
-	}
+	}*/
 
 	
 	//starting the first substate
@@ -119,7 +119,7 @@ void GameState::OnEnter(sf::RenderWindow& window)
 
 void GameState::OnExit(sf::RenderWindow& window)
 {
-	gameMusic.stop();
+//	gameMusic.stop();
 }
 
 StateType GameState::Update(sf::RenderWindow& window, sf::Time elapsedTime)

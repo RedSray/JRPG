@@ -6,10 +6,9 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include <SFML\System\Vector2.hpp>
-
-#include "Entity.h"
 
 struct Tile
 {
@@ -36,18 +35,14 @@ public:
 	int GetLayerCell(int,int,int) const;
 	std::string GetLayerName(int) const;
 	bool IsCellWalkable(sf::Vector2i) const;
-	int GetNbEntities() const;
 
-	std::unique_ptr<Entity>& GetEntity(int);
 
 	void SetTile(Tile);
 	void SetSize(sf::Vector2i);
 	void SetTileSize(sf::Vector2i);
 	void SetLayer(std::string, std::string);
-	void SetEntity(Entity*);
 
 private:
-	std::vector<std::unique_ptr<Entity>> entities;
 	std::vector<Tile> tiles;
 	std::vector<Layer> layers;
 	sf::Vector2i size; //in tile

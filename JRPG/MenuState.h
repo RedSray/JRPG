@@ -6,7 +6,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Text.hpp>
 #include <SFML\Window\Keyboard.hpp>
-#include <SFML\Audio\Music.hpp>
+//#include <SFML\Audio\Music.hpp>
 
 #include "State.h"
 
@@ -34,7 +34,7 @@ private:
 	sf::Time selectionAnimationTime;
 	sf::Time selectionChangeRepetitionTime;
 
-	sf::Music menumusic;
+//	sf::Music menumusic;
 	
 };
 

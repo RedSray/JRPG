@@ -46,15 +46,7 @@ bool TMXMap::IsCellWalkable(sf::Vector2i cell) const
 	return (layers[entitiesLayer].data[cell.x][cell.y] == -1)?true:false;
 }
 
-std::unique_ptr<Entity>& TMXMap::GetEntity(int id)
-{
-	return entities[id];
-}
 
-int TMXMap::GetNbEntities() const
-{
-	return entities.size();
-}
 
 
 void TMXMap::SetTile(Tile tile)
@@ -103,9 +95,4 @@ void TMXMap::SetLayer(std::string name, std::string data)
 
 	layers.push_back(newLayer);
 	if(newLayer.name == "Entities")entitiesLayer = layers.size()-1;
-}
-
-void TMXMap::SetEntity(Entity* newEntity)
-{
-	entities.push_back(std::unique_ptr<Entity>(newEntity));
 }

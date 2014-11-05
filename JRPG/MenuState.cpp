@@ -43,7 +43,7 @@ void MenuState::OnEnter(sf::RenderWindow& window)
 	selectionAnimationInterverted = false;
 	selectedItem = 0;
 
-	if(!menumusic.openFromFile("YukiAndTakuMenu.wav"))
+	/*if(!menumusic.openFromFile("YukiAndTakuMenu.wav"))
 	{
 		std::cout << "cannot open menu music file" << std::endl;
 	}
@@ -52,12 +52,12 @@ void MenuState::OnEnter(sf::RenderWindow& window)
 		menumusic.setLoop(true);
 		menumusic.setVolume(25);
 	//	menumusic.play();
-	}
+	}*/
 }
 
 void MenuState::OnExit(sf::RenderWindow& window)
 {
-	menumusic.stop();
+//	menumusic.stop();
 }
 
 StateType MenuState::Update(sf::RenderWindow& window, sf::Time lastFrameDuration)

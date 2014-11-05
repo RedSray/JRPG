@@ -6,7 +6,7 @@
 #include <SFML\Graphics\Texture.hpp>
 #include <SFML\Graphics\Sprite.hpp>
 #include <SFML\Window\Keyboard.hpp>
-#include <SFML\Audio\Music.hpp>
+//#include <SFML\Audio\Music.hpp>
 
 #include <memory>
 
@@ -37,7 +37,7 @@ private:
 
 	std::shared_ptr<Game> game;
 
-	sf::Music gameMusic;
+	//sf::Music gameMusic;
 	
 };
 
